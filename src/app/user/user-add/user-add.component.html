@@ -1,0 +1,122 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/users']"
+      ><mat-icon>list</mat-icon></a
+    >
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="userForm" (ngSubmit)="onFormSubmit(userForm.value)">
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Cod. Usuario"
+          formControlName="usuUsuario"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('usuUsuario').valid &&
+              userForm.get('usuUsuario').touched
+            "
+            >Por favor introduzca un código de usuario</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Nombre"
+          formControlName="nombre"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('nombre').valid && userForm.get('nombre').touched
+            "
+            >Pro favor introduzca un nombre</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Identificación"
+          formControlName="identificacion"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('identificacion').valid &&
+              userForm.get('identificacion').touched
+            "
+            >Por favor introduzca un número de identificación</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Clave"
+          formControlName="clave"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('clave').valid && userForm.get('clave').touched
+            "
+            >Por favor introduzca una clave</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Estado"
+          formControlName="activo"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('activo').valid && userForm.get('activo').touched
+            "
+            >Por favor introduzca un estado</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Tipo Usuario"
+          formControlName="tiusId"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !userForm.get('tiusId').valid && userForm.get('tiusId').touched
+            "
+            >Por favor introduzca un tipo de usuario</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <div class="button-row">
+        <button
+          type="submit"
+          [disabled]="!userForm.valid"
+          mat-flat-button
+          color="primary"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,125 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" (click)="clientDetails()"
+      ><mat-icon>info</mat-icon></a
+    >
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit(clientForm.value)">
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Cliente Nombre"
+          formControlName="nombre"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('nombre').valid &&
+              clientForm.get('nombre').touched
+            "
+            >Por favor introduzca un nombre</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Email"
+          formControlName="email"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('email').valid && clientForm.get('email').touched
+            "
+            >Pro favor introduzca un email</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Direccion"
+          formControlName="direccion"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('direccion').valid &&
+              clientForm.get('direccion').touched
+            "
+            >Por favor introduzca una direccion</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Telefono"
+          formControlName="telefono"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('telefono').valid &&
+              clientForm.get('telefono').touched
+            "
+            >Por favor introduzca un teléfono</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Estado"
+          formControlName="activo"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('activo').valid &&
+              clientForm.get('activo').touched
+            "
+            >Por favor introduzca un estado</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          placeholder="Tipo Documento"
+          formControlName="tdocId"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !clientForm.get('tdocId').valid &&
+              clientForm.get('tdocId').touched
+            "
+            >Por favor introduzca un estado</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <div class="button-row">
+        <button
+          type="submit"
+          [disabled]="!clientForm.valid"
+          mat-flat-button
+          color="primary"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

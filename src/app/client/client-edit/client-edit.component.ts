@@ -9,6 +9,7 @@ import {
   NgForm,
   Validators
 } from "@angular/forms";
+import { TipoDocumento } from "../../documentType";
 
 @Component({
   selector: "app-client-edit",
@@ -19,12 +20,17 @@ export class ClientEditComponent implements OnInit {
   clientForm: FormGroup;
   clieId: number = 0;
   activo: string = "";
+  activoSelect: object[] = [
+    { value: "S", name: "Activo" },
+    { value: "N", name: "Inactivo" }
+  ];
   direccion: string = "";
   email: string = "";
   nombre: string = "";
   telefono: string = "";
   tdocId: number = 0;
   isLoadingResults = false;
+  documentTypes: TipoDocumento[] = [];
 
   constructor(
     private router: Router,
@@ -37,6 +43,7 @@ export class ClientEditComponent implements OnInit {
     this.api.getClient(clieId).subscribe(data => {
       this.clieId = data.clieId;
       this.clientForm.setValue({
+        clieId: data.clieId,
         nombre: data.nombre,
         email: data.email,
         direccion: data.direccion,
@@ -65,9 +72,30 @@ export class ClientEditComponent implements OnInit {
     this.router.navigate(["/client-details", this.clieId]);
   }
 
+  maysPrimera(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   ngOnInit() {
     this.getClient(this.route.snapshot.params["clieId"]);
+    this.api.getDocumentTypes().subscribe(
+      res => {
+        if (res) {
+          res.forEach((element, index) => {
+            this.documentTypes.push({
+              tdocId: element.tdocId,
+              nombre: this.maysPrimera(element.nombre.toLowerCase()),
+              activo: element.activo
+            });
+          });
+        }
+      },
+      err => {
+        this.isLoadingResults = false;
+      }
+    );
     this.clientForm = this.formBuilder.group({
+      clieId: [null, Validators.required],
       nombre: [null, Validators.required],
       email: [null, Validators.required],
       direccion: [null, Validators.required],

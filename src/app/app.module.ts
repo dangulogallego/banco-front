@@ -23,7 +23,8 @@ import {
   MatCheckboxModule,
   MatCardModule,
   MatFormFieldModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from "@angular/material";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { DocumentTypesComponent } from "./document-type/document-types/document-types.component";
@@ -38,6 +39,7 @@ import { UserTypesComponent } from "./user-type/user-types/user-types.component"
 import { UserTypeAddComponent } from "./user-type/user-type-add/user-type-add.component";
 import { UserTypeDetailComponent } from "./user-type/user-type-detail/user-type-detail.component";
 import { UserTypeEditComponent } from "./user-type/user-type-edit/user-type-edit.component";
+import { stateToHumanReadable } from "./utils/filters.pipe";
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { UserTypeEditComponent } from "./user-type/user-type-edit/user-type-edit
     UserTypesComponent,
     UserTypeAddComponent,
     UserTypeDetailComponent,
-    UserTypeEditComponent
+    UserTypeEditComponent,
+    stateToHumanReadable
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { UserTypeEditComponent } from "./user-type/user-type-edit/user-type-edit
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSnackBarModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

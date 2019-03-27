@@ -45,10 +45,7 @@ export class ApiService {
   addClient(client): Observable<Cliente> {
     return this.http
       .post<Cliente>(`${apiUrl}/cliente/`, client, httpOptions)
-      .pipe(
-        tap(_ => console.log(`added cliente`)),
-        catchError(this.handleError<Cliente>("addClient"))
-      );
+      .pipe(tap(_ => console.log(`added cliente`)));
   }
 
   updateClient(clieId, client): Observable<any> {

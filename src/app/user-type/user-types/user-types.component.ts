@@ -20,7 +20,7 @@ export class UserTypesComponent implements OnInit {
   isLoadingResults = true;
 
   ELEMENT_DATA: UserTypeElement[] = [];
-  displayedColumns: string[] = ["position", "nombre", "activo"];
+  displayedColumns: string[] = ["position", "nombre", "tiusId", "activo"];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,6 +40,10 @@ export class UserTypesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  filterState(activo) {
+    return activo === "S" ? "Activo" : "Inactivo";
+  }
+
   ngOnInit() {
     this.dataUserTypes = [];
     this.api.getUserTypes().subscribe(
@@ -47,9 +51,9 @@ export class UserTypesComponent implements OnInit {
         if (res) {
           res.forEach((element, index) => {
             this.dataUserTypes.push({
-              position: index,
+              position: index + 1,
               tiusId: element.tiusId,
-              activo: element.activo,
+              activo: this.filterState(element.activo),
               nombre: element.nombre
             });
           });

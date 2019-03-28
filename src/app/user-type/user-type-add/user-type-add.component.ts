@@ -10,6 +10,7 @@ import {
   Validators
 } from "@angular/forms";
 import { TipoDocumento } from "../../documentType";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-user-type-add",
@@ -20,13 +21,24 @@ export class UserTypeAddComponent implements OnInit {
   userTypeForm: FormGroup;
   nombre: string = "";
   activo: string = "";
+  activoSelect: object[] = [
+    { value: "S", name: "Activo" },
+    { value: "N", name: "Inactivo" }
+  ];
   isLoadingResults = false;
 
   constructor(
     private router: Router,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   onFormSubmit(form: NgForm) {
     this.isLoadingResults = true;
@@ -36,7 +48,7 @@ export class UserTypeAddComponent implements OnInit {
         this.router.navigate(["/user-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(err.error + "", "Entendido");
         this.isLoadingResults = false;
       }
     );

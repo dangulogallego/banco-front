@@ -31,7 +31,15 @@
         <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
       </ng-container>
 
-      <!-- Emil Column -->
+      <!-- tiusId Column -->
+      <ng-container matColumnDef="tiusId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Cod. Tipo Usuario
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.tiusId }}</td>
+      </ng-container>
+
+      <!-- Estado Column -->
       <ng-container matColumnDef="activo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
         <td mat-cell *matCellDef="let element">{{ element.activo }}</td>

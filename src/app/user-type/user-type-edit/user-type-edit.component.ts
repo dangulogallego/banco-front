@@ -9,6 +9,7 @@ import {
   NgForm,
   Validators
 } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-user-type-edit",
@@ -20,14 +21,25 @@ export class UserTypeEditComponent implements OnInit {
   tiusId: number = 0;
   nombre: string = "";
   activo: string = "";
+  activoSelect: object[] = [
+    { value: "S", name: "Activo" },
+    { value: "N", name: "Inactivo" }
+  ];
   isLoadingResults = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getUserType(tiusId) {
     this.api.getUserType(tiusId).subscribe(data => {
@@ -48,10 +60,14 @@ export class UserTypeEditComponent implements OnInit {
         this.router.navigate(["/user-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(err.error + "", "Entendido");
         this.isLoadingResults = false;
       }
     );
+  }
+
+  userTypeDetails() {
+    this.router.navigate(["/user-type-details", this.tiusId]);
   }
 
   ngOnInit() {

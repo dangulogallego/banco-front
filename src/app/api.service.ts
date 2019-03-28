@@ -146,30 +146,24 @@ export class ApiService {
     );
   }
 
-  addUserType(userType): Observable<TipoUsuario> {
+  addUserType(userType): Observable<any> {
     return this.http
-      .post<TipoUsuario>(`${apiUrl}/tipo-usuario/`, userType, httpOptions)
-      .pipe(
-        tap(_ => console.log(`added userType`)),
-        catchError(this.handleError<TipoUsuario>("addUserType"))
-      );
+      .post(`${apiUrl}/tipo-usuario/`, userType, { responseType: "text" })
+      .pipe(tap(_ => console.log(`added userType`)));
   }
 
   updateUserType(tiusId, userType): Observable<any> {
-    console.log(tiusId);
-    console.log(userType);
     const url = `${apiUrl}/tipo-usuario/`;
-    return this.http.put(url, userType, httpOptions).pipe(
-      tap(_ => console.log(`updated userType id=${tiusId}`)),
-      catchError(this.handleError<any>("updateUserType"))
-    );
+    return this.http
+      .put(url, userType, { responseType: "text" })
+      .pipe(tap(_ => console.log(`updated userType id=${tiusId}`)));
   }
 
-  deleteUserType(tiusId): Observable<TipoUsuario> {
+  deleteUserType(tiusId): Observable<any> {
     const url = `${apiUrl}/tipo-usuario/${tiusId}`;
-    return this.http.delete<TipoUsuario>(url, httpOptions).pipe(
+    return this.http.delete(url, { responseType: "text" }).pipe(
       tap(_ => console.log(`deleted user tiusId=${tiusId}`)),
-      catchError(this.handleError<TipoUsuario>("deleteUserType"))
+      catchError(this.handleError("deleteUserType"))
     );
   }
 }

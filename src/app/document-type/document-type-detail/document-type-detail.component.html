@@ -12,7 +12,10 @@
       <mat-card-title
         ><h2>{{ typeDocument.nombre }}</h2></mat-card-title
       >
-      <mat-card-subtitle>Activo: {{ typeDocument.activo }}</mat-card-subtitle>
+      <mat-card-subtitle
+        >Estado:
+        {{ typeDocument.activo | stateToHumanReadable }}</mat-card-subtitle
+      >
     </mat-card-header>
     <mat-card-actions>
       <a

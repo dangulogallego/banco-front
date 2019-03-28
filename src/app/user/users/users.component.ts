@@ -16,7 +16,7 @@ export interface UserElement {
 @Component({
   selector: "app-users",
   templateUrl: "./users.component.html",
-  styleUrls: ["./users.component.sass"]
+  styleUrls: ["./users.component.scss"]
 })
 export class UsersComponent implements OnInit {
   dataUsers = [];
@@ -26,8 +26,8 @@ export class UsersComponent implements OnInit {
   ELEMENT_DATA: UserElement[] = [];
   displayedColumns: string[] = [
     "position",
-    "usuUsuario",
     "nombre",
+    "usuUsuario",
     "identificacion",
     "activo"
   ];
@@ -48,6 +48,10 @@ export class UsersComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  filterState(activo) {
+    return activo === "S" ? "Activo" : "Inactivo";
+  }
+
   ngOnInit() {
     this.dataUsers = [];
     this.api.getUsers().subscribe(
@@ -55,9 +59,9 @@ export class UsersComponent implements OnInit {
         if (res) {
           res.forEach((element, index) => {
             this.dataUsers.push({
-              position: index,
+              position: index + 1,
               usuUsuario: element.usuUsuario,
-              activo: element.activo,
+              activo: this.filterState(element.activo),
               clave: element.clave,
               identificacion: element.identificacion,
               nombre: element.nombre,

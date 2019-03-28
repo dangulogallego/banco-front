@@ -24,7 +24,8 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatButtonToggleModule
 } from "@angular/material";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { DocumentTypesComponent } from "./document-type/document-types/document-types.component";
@@ -81,6 +82,7 @@ import { stateToHumanReadable } from "./utils/filters.pipe";
     MatFormFieldModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatButtonToggleModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

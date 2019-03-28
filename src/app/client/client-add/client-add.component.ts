@@ -15,7 +15,7 @@ import { MatSnackBar } from "@angular/material";
 @Component({
   selector: "app-client-add",
   templateUrl: "./client-add.component.html",
-  styleUrls: ["./client-add.component.sass"]
+  styleUrls: ["./client-add.component.scss"]
 })
 export class ClientAddComponent implements OnInit {
   clientForm: FormGroup;

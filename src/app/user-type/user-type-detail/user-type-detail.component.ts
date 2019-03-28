@@ -6,7 +6,7 @@ import { TipoUsuario } from "../../userType";
 @Component({
   selector: "app-user-type-detail",
   templateUrl: "./user-type-detail.component.html",
-  styleUrls: ["./user-type-detail.component.sass"]
+  styleUrls: ["./user-type-detail.component.scss"]
 })
 export class UserTypeDetailComponent implements OnInit {
   userType: TipoUsuario = {

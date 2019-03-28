@@ -10,11 +10,12 @@ import {
   Validators
 } from "@angular/forms";
 import { TipoDocumento } from "../../documentType";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-client-edit",
   templateUrl: "./client-edit.component.html",
-  styleUrls: ["./client-edit.component.sass"]
+  styleUrls: ["./client-edit.component.scss"]
 })
 export class ClientEditComponent implements OnInit {
   clientForm: FormGroup;
@@ -36,8 +37,15 @@ export class ClientEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getClient(clieId) {
     this.api.getClient(clieId).subscribe(data => {
@@ -62,7 +70,7 @@ export class ClientEditComponent implements OnInit {
         this.router.navigate(["/clients"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(err.error + "", "Entendido");
         this.isLoadingResults = false;
       }
     );

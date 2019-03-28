@@ -1,118 +1,173 @@
-<div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-  <div class="button-row">
-    <a mat-flat-button color="primary" (click)="clientDetails()"
-      ><mat-icon>info</mat-icon></a
-    >
-  </div>
-  <mat-card class="example-card">
-    <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit(clientForm.value)">
-      <mat-form-field class="example-full-width">
-        <input
-          matInput
-          placeholder="Cliente Nombre"
-          formControlName="nombre"
-          [errorStateMatcher]="matcher"
-        />
-        <mat-error>
-          <span
-            *ngIf="
-              !clientForm.get('nombre').valid &&
-              clientForm.get('nombre').touched
-            "
-            >Por favor introduzca un nombre</span
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="button-row">
+          <a mat-flat-button color="primary" (click)="clientDetails()"
+            ><mat-icon>info</mat-icon></a
           >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          matInput
-          placeholder="Email"
-          formControlName="email"
-          [errorStateMatcher]="matcher"
-        />
-        <mat-error>
-          <span
-            *ngIf="
-              !clientForm.get('email').valid && clientForm.get('email').touched
-            "
-            >Pro favor introduzca un email</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          matInput
-          placeholder="Direccion"
-          formControlName="direccion"
-          [errorStateMatcher]="matcher"
-        />
-        <mat-error>
-          <span
-            *ngIf="
-              !clientForm.get('direccion').valid &&
-              clientForm.get('direccion').touched
-            "
-            >Por favor introduzca una direccion</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          matInput
-          placeholder="Telefono"
-          formControlName="telefono"
-          [errorStateMatcher]="matcher"
-        />
-        <mat-error>
-          <span
-            *ngIf="
-              !clientForm.get('telefono').valid &&
-              clientForm.get('telefono').touched
-            "
-            >Por favor introduzca un teléfono</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Estado</mat-label>
-        <mat-select [formControl]="clientForm.get('activo')" required>
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let state of activoSelect" [value]="state.value">
-            {{ state.name }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="clientForm.get('activo').hasError('required')"
-          >Por favor selecciona un estado</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Tipo Documento</mat-label>
-        <mat-select [formControl]="clientForm.get('tdocId')" required>
-          <mat-option>--</mat-option>
-          <mat-option
-            *ngFor="let typeDocument of documentTypes"
-            [value]="typeDocument.tdocId"
-          >
-            {{ typeDocument.nombre }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="clientForm.get('tdocId').hasError('required')"
-          >Por favor selecciona un tipo de documento</mat-error
-        >
-      </mat-form-field>
-      <div class="button-row">
-        <button
-          type="submit"
-          [disabled]="!clientForm.valid"
-          mat-flat-button
-          color="primary"
-        >
-          <mat-icon>save</mat-icon>
-        </button>
+        </div>
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Editar Cliente</h4>
+            <p class="card-category">
+              Complete el formulario para editar el cliente.
+            </p>
+          </div>
+          <div class="card-body">
+            <form
+              [formGroup]="clientForm"
+              (ngSubmit)="onFormSubmit(clientForm.value)"
+            >
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field
+                    class="example-full-width"
+                    style="display: block"
+                  >
+                    <input
+                      matInput
+                      placeholder="Nombre"
+                      formControlName="nombre"
+                      [errorStateMatcher]="matcher"
+                    />
+                    <mat-error>
+                      <span
+                        *ngIf="
+                          !clientForm.get('nombre').valid &&
+                          clientForm.get('nombre').touched
+                        "
+                        >Por favor introduzca un nombre</span
+                      >
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field
+                    class="example-full-width"
+                    style="display: block"
+                  >
+                    <input
+                      matInput
+                      placeholder="Email"
+                      formControlName="email"
+                      [errorStateMatcher]="matcher"
+                    />
+                    <mat-error>
+                      <span
+                        *ngIf="
+                          !clientForm.get('email').valid &&
+                          clientForm.get('email').touched
+                        "
+                        >Pro favor introduzca un email</span
+                      >
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field
+                    class="example-full-width"
+                    style="display: block"
+                  >
+                    <input
+                      matInput
+                      placeholder="Dirección"
+                      formControlName="direccion"
+                      [errorStateMatcher]="matcher"
+                    />
+                    <mat-error>
+                      <span
+                        *ngIf="
+                          !clientForm.get('direccion').valid &&
+                          clientForm.get('direccion').touched
+                        "
+                        >Por favor introduzca una direccion</span
+                      >
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field
+                    class="example-full-width"
+                    style="display: block"
+                  >
+                    <input
+                      matInput
+                      placeholder="Teléfono"
+                      formControlName="telefono"
+                      [errorStateMatcher]="matcher"
+                    />
+                    <mat-error>
+                      <span
+                        *ngIf="
+                          !clientForm.get('telefono').valid &&
+                          clientForm.get('telefono').touched
+                        "
+                        >Por favor introduzca un teléfono</span
+                      >
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field style="display: block">
+                    <mat-label>Estado</mat-label>
+                    <mat-select
+                      [formControl]="clientForm.get('activo')"
+                      required
+                    >
+                      <mat-option>--</mat-option>
+                      <mat-option
+                        *ngFor="let state of activoSelect"
+                        [value]="state.value"
+                      >
+                        {{ state.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="clientForm.get('activo').hasError('required')"
+                      >Por favor selecciona un estado</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field style="display: block">
+                    <mat-label>Tipo Documento</mat-label>
+                    <mat-select
+                      [formControl]="clientForm.get('tdocId')"
+                      required
+                    >
+                      <mat-option>--</mat-option>
+                      <mat-option
+                        *ngFor="let typeDocument of documentTypes"
+                        [value]="typeDocument.tdocId"
+                      >
+                        {{ typeDocument.nombre }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="clientForm.get('tdocId').hasError('required')"
+                      >Por favor selecciona un tipo de documento</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                type="submit"
+                [disabled]="!clientForm.valid"
+                class="btn btn-primary pull-right"
+                style="background-color: #9c27b0 !important; border-color: #9c27b0 !important;"
+              >
+                Actualizar
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
-  </mat-card>
+    </div>
+  </div>
 </div>

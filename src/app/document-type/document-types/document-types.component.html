@@ -27,13 +27,21 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
         <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="tdocId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Cod. Tipo Documento
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.tdocId }}</td>
       </ng-container>
 
       <!-- Emil Column -->
       <ng-container matColumnDef="activo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
         <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
       </ng-container>
 

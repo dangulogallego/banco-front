@@ -16,7 +16,7 @@ export interface ClientElement {
 @Component({
   selector: "app-clients",
   templateUrl: "./clients.component.html",
-  styleUrls: ["./clients.component.sass"]
+  styleUrls: ["./clients.component.scss"]
 })
 export class ClientsComponent implements OnInit {
   dataClients = [];

@@ -12,7 +12,7 @@ export interface DocumentTypeElement {
 @Component({
   selector: "app-document-types",
   templateUrl: "./document-types.component.html",
-  styleUrls: ["./document-types.component.sass"]
+  styleUrls: ["./document-types.component.scss"]
 })
 export class DocumentTypesComponent implements OnInit {
   dataDocumentTypes = [];
@@ -20,7 +20,7 @@ export class DocumentTypesComponent implements OnInit {
   isLoadingResults = true;
 
   ELEMENT_DATA: DocumentTypeElement[] = [];
-  displayedColumns: string[] = ["position", "nombre", "activo"];
+  displayedColumns: string[] = ["position", "nombre", "tdocId", "activo"];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,6 +40,10 @@ export class DocumentTypesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  filterState(activo) {
+    return activo === "S" ? "Activo" : "Inactivo";
+  }
+
   ngOnInit() {
     this.dataDocumentTypes = [];
     this.api.getDocumentTypes().subscribe(
@@ -47,9 +51,9 @@ export class DocumentTypesComponent implements OnInit {
         if (res) {
           res.forEach((element, index) => {
             this.dataDocumentTypes.push({
-              position: index,
+              position: index + 1,
               nombre: element.nombre,
-              activo: element.activo,
+              activo: this.filterState(element.activo),
               tdocId: element.tdocId
             });
           });

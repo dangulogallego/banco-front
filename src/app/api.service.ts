@@ -42,25 +42,24 @@ export class ApiService {
     );
   }
 
-  addClient(client): Observable<Cliente> {
+  addClient(client): Observable<any> {
     return this.http
-      .post<Cliente>(`${apiUrl}/cliente/`, client, httpOptions)
+      .post(`${apiUrl}/cliente/`, client, { responseType: "text" })
       .pipe(tap(_ => console.log(`added cliente`)));
   }
 
   updateClient(clieId, client): Observable<any> {
     const url = `${apiUrl}/cliente/`;
-    return this.http.put(url, client, httpOptions).pipe(
-      tap(_ => console.log(`updated client id=${clieId}`)),
-      catchError(this.handleError<any>("updateClient"))
-    );
+    return this.http
+      .put(url, client, { responseType: "text" })
+      .pipe(tap(_ => console.log(`updated client id=${clieId}`)));
   }
 
-  deleteClient(clieId): Observable<Cliente> {
+  deleteClient(clieId): Observable<any> {
     const url = `${apiUrl}/cliente/${clieId}`;
-    return this.http.delete<Cliente>(url, httpOptions).pipe(
+    return this.http.delete(url, { responseType: "text" }).pipe(
       tap(_ => console.log(`deleted client id=${clieId}`)),
-      catchError(this.handleError<Cliente>("deleteClient"))
+      catchError(this.handleError("deleteClient"))
     );
   }
 
@@ -79,32 +78,24 @@ export class ApiService {
     );
   }
 
-  addDocumentType(documentType): Observable<TipoDocumento> {
+  addDocumentType(documentType): Observable<any> {
     return this.http
-      .post<TipoDocumento>(
-        `${apiUrl}/tipo-documento/`,
-        documentType,
-        httpOptions
-      )
-      .pipe(
-        tap(_ => console.log(`added documentType`)),
-        catchError(this.handleError<TipoDocumento>("addDocumentType"))
-      );
+      .post(`${apiUrl}/tipo-documento/`, documentType, { responseType: "text" })
+      .pipe(tap(_ => console.log(`added documentType`)));
   }
 
   updateDocumentType(tdocId, documentType): Observable<any> {
     const url = `${apiUrl}/tipo-documento/`;
-    return this.http.put(url, documentType, httpOptions).pipe(
-      tap(_ => console.log(`updated documentType id=${tdocId}`)),
-      catchError(this.handleError<any>("updateDocumentType"))
-    );
+    return this.http
+      .put(url, documentType, { responseType: "text" })
+      .pipe(tap(_ => console.log(`updated documentType id=${tdocId}`)));
   }
 
-  deleteDocumentType(tdocId): Observable<TipoDocumento> {
+  deleteDocumentType(tdocId): Observable<any> {
     const url = `${apiUrl}/tipo-documento/${tdocId}`;
-    return this.http.delete<TipoDocumento>(url, httpOptions).pipe(
+    return this.http.delete(url, { responseType: "text" }).pipe(
       tap(_ => console.log(`deleted documentType id=${tdocId}`)),
-      catchError(this.handleError<TipoDocumento>("deleteDocumentType"))
+      catchError(this.handleError("deleteDocumentType"))
     );
   }
 
@@ -121,28 +112,24 @@ export class ApiService {
     );
   }
 
-  addUser(user): Observable<Usuario> {
+  addUser(user): Observable<any> {
     return this.http
-      .post<Usuario>(`${apiUrl}/usuario/`, user, httpOptions)
-      .pipe(
-        tap(_ => console.log(`added usuario`)),
-        catchError(this.handleError<Usuario>("addUser"))
-      );
+      .post(`${apiUrl}/usuario/`, user, { responseType: "text" })
+      .pipe(tap(_ => console.log(`added usuario`)));
   }
 
   updateUser(usuUsuario, usuario): Observable<any> {
     const url = `${apiUrl}/usuario/`;
-    return this.http.put(url, usuario, httpOptions).pipe(
-      tap(_ => console.log(`updated user id=${usuUsuario}`)),
-      catchError(this.handleError<any>("updateUser"))
-    );
+    return this.http
+      .put(url, usuario, { responseType: "text" })
+      .pipe(tap(_ => console.log(`updated user id=${usuUsuario}`)));
   }
 
-  deleteUser(usuUsuario): Observable<Usuario> {
+  deleteUser(usuUsuario): Observable<any> {
     const url = `${apiUrl}/usuario/${usuUsuario}`;
-    return this.http.delete<Usuario>(url, httpOptions).pipe(
+    return this.http.delete(url, { responseType: "text" }).pipe(
       tap(_ => console.log(`deleted user usuUsuario=${usuUsuario}`)),
-      catchError(this.handleError<Usuario>("deleteUser"))
+      catchError(this.handleError("deleteUser"))
     );
   }
 

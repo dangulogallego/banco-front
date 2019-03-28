@@ -25,16 +25,16 @@
         <td mat-cell *matCellDef="let element">{{ element.position }}</td>
       </ng-container>
 
-      <!-- usuUsuario Column -->
-      <ng-container matColumnDef="usuUsuario">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. Usuario</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuUsuario }}</td>
-      </ng-container>
-
       <!-- nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
         <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+      </ng-container>
+
+      <!-- usuUsuario Column -->
+      <ng-container matColumnDef="usuUsuario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. Usuario</th>
+        <td mat-cell *matCellDef="let element">{{ element.usuUsuario }}</td>
       </ng-container>
 
       <!-- identificacion Column -->

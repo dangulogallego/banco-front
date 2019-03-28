@@ -10,23 +10,35 @@ import {
   Validators
 } from "@angular/forms";
 import { TipoDocumento } from "../../documentType";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-document-type-add",
   templateUrl: "./document-type-add.component.html",
-  styleUrls: ["./document-type-add.component.sass"]
+  styleUrls: ["./document-type-add.component.scss"]
 })
 export class DocumentTypeAddComponent implements OnInit {
   documentTypeForm: FormGroup;
   nombre: string = "";
   activo: string = "";
+  activoSelect: object[] = [
+    { value: "S", name: "Activo" },
+    { value: "N", name: "Inactivo" }
+  ];
   isLoadingResults = false;
 
   constructor(
     private router: Router,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   onFormSubmit(form: NgForm) {
     this.isLoadingResults = true;
@@ -36,7 +48,7 @@ export class DocumentTypeAddComponent implements OnInit {
         this.router.navigate(["/document-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(err.error + "", "Entendido");
         this.isLoadingResults = false;
       }
     );

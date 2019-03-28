@@ -13,7 +13,7 @@ import {
 @Component({
   selector: "app-user-type-edit",
   templateUrl: "./user-type-edit.component.html",
-  styleUrls: ["./user-type-edit.component.sass"]
+  styleUrls: ["./user-type-edit.component.scss"]
 })
 export class UserTypeEditComponent implements OnInit {
   userTypeForm: FormGroup;

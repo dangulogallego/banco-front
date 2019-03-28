@@ -9,25 +9,37 @@ import {
   NgForm,
   Validators
 } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-document-type-edit",
   templateUrl: "./document-type-edit.component.html",
-  styleUrls: ["./document-type-edit.component.sass"]
+  styleUrls: ["./document-type-edit.component.scss"]
 })
 export class DocumentTypeEditComponent implements OnInit {
   documentTypeForm: FormGroup;
   tdocId: number = 0;
   nombre: string = "";
   activo: string = "";
+  activoSelect: object[] = [
+    { value: "S", name: "Activo" },
+    { value: "N", name: "Inactivo" }
+  ];
   isLoadingResults = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getDocumentType(tdocId) {
     this.api.getDocumentType(tdocId).subscribe(data => {
@@ -48,10 +60,14 @@ export class DocumentTypeEditComponent implements OnInit {
         this.router.navigate(["/document-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(err.error + "", "Entendido");
         this.isLoadingResults = false;
       }
     );
+  }
+
+  documentTypeDetails() {
+    this.router.navigate(["/document-type-details", this.tdocId]);
   }
 
   ngOnInit() {

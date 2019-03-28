@@ -1,3 +1,7 @@
+<div>
+    <p class="mat-h1">Tipo de Documentos</p>
+    <hr>
+  </div>
 <div class="example-loading-shade" *ngIf="isLoadingResults">
   <mat-spinner style="margin: 0 auto" *ngIf="isLoadingResults"></mat-spinner>
 </div>
@@ -11,7 +15,7 @@
     <input
       matInput
       (keyup)="applyFilter($event.target.value)"
-      placeholder="Filter"
+      placeholder="Buscar tipo de documento"
     />
   </mat-form-field>
   <div class="mat-elevation-z8">
@@ -44,6 +48,22 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
         <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
       </ng-container>
+
+      <!-- Actions Buttons-->
+      <ng-container matColumnDef="accion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Acción</th>
+          <td mat-cell *matCellDef="let element">
+              <div class="button-row">
+                  <a  class="button-sm" matTooltip="Editar" mat-flat-button color="primary"
+                  [routerLink]="['/document-type-edit', element.tdocId]">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                  <a  class="button-sm" matTooltip="Eliminar" mat-flat-button color="warn" (click)="deleteDocumentType(element.tdocId)">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </div>    
+          </td>
+        </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr

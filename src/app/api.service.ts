@@ -14,7 +14,7 @@ import { TipoUsuario } from "./userType";
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
-const apiUrl = "http://127.0.0.1:8080/banco-rest/rest";
+const apiUrl = "http://192.168.1.103:8080/banco-rest/rest";
 
 @Injectable({
   providedIn: "root"

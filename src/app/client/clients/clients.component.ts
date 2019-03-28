@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { Cliente } from "../../client";
 import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
@@ -31,13 +32,14 @@ export class ClientsComponent implements OnInit {
     "email",
     "telefono",
     "direccion",
-    "activo"
+    "activo",
+    "accion",
   ];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -49,7 +51,19 @@ export class ClientsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-
+  deleteClient(clieId) {
+    this.isLoadingResults = true;
+    this.api.deleteClient(clieId).subscribe(
+      res => {
+        this.isLoadingResults = false;
+        this.router.navigate(["/clients"]);
+      },
+      err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
   filterState(activo) {
     return activo === "S" ? "Activo" : "Inactivo";
   }

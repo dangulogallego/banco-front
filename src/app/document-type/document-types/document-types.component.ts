@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ApiService } from "../../api.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
 
 export interface DocumentTypeElement {
@@ -20,12 +21,12 @@ export class DocumentTypesComponent implements OnInit {
   isLoadingResults = true;
 
   ELEMENT_DATA: DocumentTypeElement[] = [];
-  displayedColumns: string[] = ["position", "nombre", "tdocId", "activo"];
+  displayedColumns: string[] = ["position", "nombre", "tdocId", "activo", "accion"];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -44,6 +45,19 @@ export class DocumentTypesComponent implements OnInit {
     return activo === "S" ? "Activo" : "Inactivo";
   }
 
+  deleteDocumentType(clieId) {
+    this.isLoadingResults = true;
+    this.api.deleteDocumentType(clieId).subscribe(
+      res => {
+        this.isLoadingResults = false;
+        this.router.navigate(["/document-types"]);
+      },
+      err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
   ngOnInit() {
     this.dataDocumentTypes = [];
     this.api.getDocumentTypes().subscribe(

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { Cliente } from "../../client";
 import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 
 export interface ClientElement {
   position: number;
@@ -33,13 +34,23 @@ export class ClientsComponent implements OnInit {
     "telefono",
     "direccion",
     "activo",
-    "accion",
+    "accion"
   ];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -51,6 +62,7 @@ export class ClientsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
+
   deleteClient(clieId) {
     this.isLoadingResults = true;
     this.api.deleteClient(clieId).subscribe(
@@ -59,11 +71,15 @@ export class ClientsComponent implements OnInit {
         this.router.navigate(["/clients"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El cliente no ha sido eliminado; Es posible que tenga cuentas asociadas.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );
   }
+
   filterState(activo) {
     return activo === "S" ? "Activo" : "Inactivo";
   }

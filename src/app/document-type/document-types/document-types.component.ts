@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ApiService } from "../../api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 
 export interface DocumentTypeElement {
   position: number;
@@ -21,12 +22,28 @@ export class DocumentTypesComponent implements OnInit {
   isLoadingResults = true;
 
   ELEMENT_DATA: DocumentTypeElement[] = [];
-  displayedColumns: string[] = ["position", "nombre", "tdocId", "activo", "accion"];
+  displayedColumns: string[] = [
+    "position",
+    "nombre",
+    "tdocId",
+    "activo",
+    "accion"
+  ];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -53,11 +70,15 @@ export class DocumentTypesComponent implements OnInit {
         this.router.navigate(["/document-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El tipo de documento no ha sido eliminado; Es posible que esté asociado a uno o más clientes.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );
   }
+
   ngOnInit() {
     this.dataDocumentTypes = [];
     this.api.getDocumentTypes().subscribe(

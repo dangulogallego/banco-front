@@ -14,7 +14,7 @@ import { TipoUsuario } from "./userType";
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
-const apiUrl = "http://192.168.1.103:8080/banco-rest/rest";
+const apiUrl = "http://127.0.0.1:8080/banco-rest/rest";
 
 @Injectable({
   providedIn: "root"
@@ -57,10 +57,9 @@ export class ApiService {
 
   deleteClient(clieId): Observable<any> {
     const url = `${apiUrl}/cliente/${clieId}`;
-    return this.http.delete(url, { responseType: "text" }).pipe(
-      tap(_ => console.log(`deleted client id=${clieId}`)),
-      catchError(this.handleError("deleteClient"))
-    );
+    return this.http
+      .delete(url, { responseType: "text" })
+      .pipe(tap(_ => console.log(`deleted client id=${clieId}`)));
   }
 
   // --------------- Tipo Documentos -------------
@@ -93,10 +92,9 @@ export class ApiService {
 
   deleteDocumentType(tdocId): Observable<any> {
     const url = `${apiUrl}/tipo-documento/${tdocId}`;
-    return this.http.delete(url, { responseType: "text" }).pipe(
-      tap(_ => console.log(`deleted documentType id=${tdocId}`)),
-      catchError(this.handleError("deleteDocumentType"))
-    );
+    return this.http
+      .delete(url, { responseType: "text" })
+      .pipe(tap(_ => console.log(`deleted documentType id=${tdocId}`)));
   }
 
   // -------------- Usuario ---------------
@@ -127,10 +125,9 @@ export class ApiService {
 
   deleteUser(usuUsuario): Observable<any> {
     const url = `${apiUrl}/usuario/${usuUsuario}`;
-    return this.http.delete(url, { responseType: "text" }).pipe(
-      tap(_ => console.log(`deleted user usuUsuario=${usuUsuario}`)),
-      catchError(this.handleError("deleteUser"))
-    );
+    return this.http
+      .delete(url, { responseType: "text" })
+      .pipe(tap(_ => console.log(`deleted user usuUsuario=${usuUsuario}`)));
   }
 
   // -------------- Tipo Usuario ---------------
@@ -161,9 +158,8 @@ export class ApiService {
 
   deleteUserType(tiusId): Observable<any> {
     const url = `${apiUrl}/tipo-usuario/${tiusId}`;
-    return this.http.delete(url, { responseType: "text" }).pipe(
-      tap(_ => console.log(`deleted user tiusId=${tiusId}`)),
-      catchError(this.handleError("deleteUserType"))
-    );
+    return this.http
+      .delete(url, { responseType: "text" })
+      .pipe(tap(_ => console.log(`deleted user tiusId=${tiusId}`)));
   }
 }

@@ -1,3 +1,7 @@
+<div>
+  <p class="mat-h1">Tipo de Usuarios</p>
+  <hr />
+</div>
 <div class="example-loading-shade" *ngIf="isLoadingResults">
   <mat-spinner style="margin: 0 auto" *ngIf="isLoadingResults"></mat-spinner>
 </div>
@@ -11,7 +15,7 @@
     <input
       matInput
       (keyup)="applyFilter($event.target.value)"
-      placeholder="Filter"
+      placeholder="Buscar tipo de usuario..."
     />
   </mat-form-field>
   <div class="mat-elevation-z8">
@@ -22,13 +26,25 @@
       <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
-        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-type-details/', element.tiusId]"
+        >
+          {{ element.position }}
+        </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-type-details/', element.tiusId]"
+        >
+          {{ element.nombre }}
+        </td>
       </ng-container>
 
       <!-- tiusId Column -->
@@ -36,21 +52,56 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Cod. Tipo Usuario
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.tiusId }}</td>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-type-details/', element.tiusId]"
+        >
+          {{ element.tiusId }}
+        </td>
       </ng-container>
 
       <!-- Estado Column -->
       <ng-container matColumnDef="activo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-        <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-type-details/', element.tiusId]"
+        >
+          {{ element.activo }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Buttons-->
+      <ng-container matColumnDef="accion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acción</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="button-row">
+            <a
+              class="button-sm"
+              matTooltip="Editar"
+              mat-flat-button
+              color="primary"
+              [routerLink]="['/user-type-edit', element.tiusId]"
+            >
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a
+              class="button-sm"
+              matTooltip="Eliminar"
+              mat-flat-button
+              color="warn"
+              (click)="deleteUserType(element.tiusId)"
+            >
+              <mat-icon>delete</mat-icon>
+            </a>
+          </div>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let element; columns: displayedColumns"
-        [routerLink]="['/user-type-details/', element.tiusId]"
-      ></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
     </table>
 
     <mat-paginator

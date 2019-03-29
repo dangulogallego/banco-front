@@ -1,35 +1,75 @@
-<div class="example-container mat-elevation-z8">
+<div>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
-  <div class="button-row">
-    <a mat-flat-button color="primary" [routerLink]="['/document-types']"
-      ><mat-icon>list</mat-icon></a
-    >
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="button-row">
+            <a
+              mat-flat-button
+              color="primary"
+              [routerLink]="['/document-types']"
+            >
+              <mat-icon>list</mat-icon> Volver
+            </a>
+          </div>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Detalle</h4>
+              <p class="card-category">Info del tipo de documento</p>
+            </div>
+            <div class="card-body">
+              <form class="example-form">
+                <mat-form-field class="typeDocumentDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Descripción:"
+                    value="{{ typeDocument.nombre }}"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="typeDocumentDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Estado:"
+                    value="{{ typeDocument.activo | stateToHumanReadable }}"
+                  />
+                </mat-form-field>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-card-actions class="button-row">
+                      <a
+                        class="typeDocumentDetailInputs"
+                        mat-flat-button
+                        color="primary"
+                        [routerLink]="[
+                          '/document-type-edit',
+                          typeDocument.tdocId
+                        ]"
+                      >
+                        <mat-icon>edit</mat-icon>
+                      </a>
+                      <a
+                        class="typeDocumentDetailInputs"
+                        mat-flat-button
+                        color="warn"
+                        (click)="deleteDocumentType(typeDocument.tdocId)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </a>
+                    </mat-card-actions>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title
-        ><h2>{{ typeDocument.nombre }}</h2></mat-card-title
-      >
-      <mat-card-subtitle
-        >Estado:
-        {{ typeDocument.activo | stateToHumanReadable }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-actions>
-      <a
-        mat-flat-button
-        color="primary"
-        [routerLink]="['/document-type-edit', typeDocument.tdocId]"
-        ><mat-icon>edit</mat-icon></a
-      >
-      <a
-        mat-flat-button
-        color="warn"
-        (click)="deleteDocumentType(typeDocument.tdocId)"
-        ><mat-icon>delete</mat-icon></a
-      >
-    </mat-card-actions>
-  </mat-card>
 </div>

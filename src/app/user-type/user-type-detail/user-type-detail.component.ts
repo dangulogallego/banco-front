@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { TipoUsuario } from "../../userType";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-user-type-detail",
@@ -19,19 +20,24 @@ export class UserTypeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getUserTypeDetails(tiusId) {
     this.api.getUserType(tiusId).subscribe(data => {
-      console.log(data);
-
       this.userType = data;
       this.isLoadingResults = false;
     });
   }
 
-  deleteDocumentType(tiusId) {
+  deleteUserType(tiusId) {
     this.isLoadingResults = true;
     this.api.deleteUserType(tiusId).subscribe(
       res => {
@@ -39,7 +45,10 @@ export class UserTypeDetailComponent implements OnInit {
         this.router.navigate(["/user-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El tipo de usuario no ha sido eliminado; Es posible que se encuentre asociado a uno o más usuarios.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );

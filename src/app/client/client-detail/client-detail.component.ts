@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { Cliente } from "../../client";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-client-detail",
@@ -19,11 +20,19 @@ export class ClientDetailComponent implements OnInit {
     tdocId: null
   };
   isLoadingResults = true;
+
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getClientDetails(clieId) {
     this.api.getClient(clieId).subscribe(data => {
@@ -40,7 +49,10 @@ export class ClientDetailComponent implements OnInit {
         this.router.navigate(["/clients"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El cliente no ha sido eliminado; Es posible que tenga cuentas asociadas.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );

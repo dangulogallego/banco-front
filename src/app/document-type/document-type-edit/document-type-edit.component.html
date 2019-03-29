@@ -2,11 +2,6 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <div class="button-row">
-          <a mat-flat-button color="primary" (click)="documentTypeDetails()"
-            ><mat-icon>info</mat-icon></a
-          >
-        </div>
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Editar Tipo Documento</h4>
@@ -66,6 +61,13 @@
                   </mat-form-field>
                 </div>
               </div>
+              <button
+                [routerLink]="['/document-types']"
+                class="btn btn-primary pull-left"
+                style="background-color: #d50000 !important; border-color: #d50000 !important;"
+              >
+                Descartar
+              </button>
               <button
                 type="submit"
                 [disabled]="!documentTypeForm.valid"

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { Usuario } from "../../user";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-user-detail",
@@ -22,8 +23,15 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getUserDetails(usuUsuario) {
     this.api.getUser(usuUsuario).subscribe(data => {
@@ -40,7 +48,10 @@ export class UserDetailComponent implements OnInit {
         this.router.navigate(["/users"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El usuario no ha sido eliminado; Es posible que tenga transacciones asociadas.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );

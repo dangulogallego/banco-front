@@ -14,37 +14,63 @@
           <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title">{{ client.nombre }}</h4>
-              <p class="card-category">
-                Email: {{ client.email }}
-              </p>
+              <p class="card-category">Email: {{ client.email }}</p>
             </div>
             <div class="card-body">
               <form class="example-form">
                 <mat-form-field class="clientDetailInputs">
-                    <input [readonly]="true" matInput placeholder="Cod Cliente:" value="{{ client.clieId }}">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Cod Cliente:"
+                    value="{{ client.clieId }}"
+                  />
                 </mat-form-field>
 
                 <mat-form-field class="clientDetailInputs">
-                  <input [readonly]="true" matInput placeholder="Teléfono:" value="{{ client.telefono }}">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Teléfono:"
+                    value="{{ client.telefono }}"
+                  />
                 </mat-form-field>
 
                 <mat-form-field class="clientDetailInputs">
-                  <input [readonly]="true" matInput placeholder="Dirección:" value="{{ client.direccion }}">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Dirección:"
+                    value="{{ client.direccion }}"
+                  />
                 </mat-form-field>
 
                 <mat-form-field class="clientDetailInputs">
-                  <input [readonly]="true" matInput placeholder="Estado:"
-                    value="{{ client.activo | stateToHumanReadable }}">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Estado:"
+                    value="{{ client.activo | stateToHumanReadable }}"
+                  />
                 </mat-form-field>
 
                 <div class="row">
                   <div class="col-md-12">
                     <mat-card-actions class="button-row">
-                      <a class="clientDetailInputs" mat-flat-button color="primary"
-                        [routerLink]="['/client-edit', client.clieId]">
+                      <a
+                        class="clientDetailInputs"
+                        mat-flat-button
+                        color="primary"
+                        [routerLink]="['/client-edit', client.clieId]"
+                      >
                         <mat-icon>edit</mat-icon>
                       </a>
-                      <a class="clientDetailInputs" mat-flat-button color="warn" (click)="deleteClient(client.clieId)">
+                      <a
+                        class="clientDetailInputs"
+                        mat-flat-button
+                        color="warn"
+                        (click)="deleteClient(client.clieId)"
+                      >
                         <mat-icon>delete</mat-icon>
                       </a>
                     </mat-card-actions>

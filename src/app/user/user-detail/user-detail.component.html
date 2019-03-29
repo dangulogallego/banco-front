@@ -1,41 +1,86 @@
-<div class="example-container mat-elevation-z8">
+<div>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
-  <div class="button-row">
-    <a mat-flat-button color="primary" [routerLink]="['/users']"
-      ><mat-icon>list</mat-icon></a
-    >
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="button-row">
+            <a mat-flat-button color="primary" [routerLink]="['/users']">
+              <mat-icon>list</mat-icon> Volver
+            </a>
+          </div>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">{{ user.nombre }}</h4>
+              <p class="card-category">Código: {{ user.usuUsuario }}</p>
+            </div>
+            <div class="card-body">
+              <form class="example-form">
+                <mat-form-field class="userDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Tipo de Usuario:"
+                    value="{{ user.tiusId }}"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="userDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Identificación:"
+                    value="{{ user.identificacion }}"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="userDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Clave:"
+                    value="{{ user.clave }}"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="userDetailInputs">
+                  <input
+                    [readonly]="true"
+                    matInput
+                    placeholder="Estado:"
+                    value="{{ user.activo | stateToHumanReadable }}"
+                  />
+                </mat-form-field>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-card-actions class="button-row">
+                      <a
+                        class="userDetailInputs"
+                        mat-flat-button
+                        color="primary"
+                        [routerLink]="['/user-edit', user.usuUsuario]"
+                      >
+                        <mat-icon>edit</mat-icon>
+                      </a>
+                      <a
+                        class="userDetailInputs"
+                        mat-flat-button
+                        color="warn"
+                        (click)="deleteUser(user.usuUsuario)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </a>
+                    </mat-card-actions>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title
-        ><h2>{{ user.nombre }}</h2></mat-card-title
-      >
-      <mat-card-subtitle>{{ user.usuUsuario }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <dl>
-        <dt>Tipo de Usuario:</dt>
-        <dd>{{ user.tiusId }}</dd>
-        <dt>Identificación:</dt>
-        <dd>{{ user.identificacion }}</dd>
-        <dt>Clave:</dt>
-        <dd>{{ user.clave }}</dd>
-        <dt>Estado:</dt>
-        <dd>{{ user.activo | stateToHumanReadable }}</dd>
-      </dl>
-    </mat-card-content>
-    <mat-card-actions>
-      <a
-        mat-flat-button
-        color="primary"
-        [routerLink]="['/user-edit', user.usuUsuario]"
-        ><mat-icon>edit</mat-icon></a
-      >
-      <a mat-flat-button color="warn" (click)="deleteUser(user.usuUsuario)"
-        ><mat-icon>delete</mat-icon></a
-      >
-    </mat-card-actions>
-  </mat-card>
 </div>

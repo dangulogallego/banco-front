@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../api.service";
 import { TipoDocumento } from "../../documentType";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-document-type-detail",
@@ -19,8 +20,15 @@ export class DocumentTypeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 
   getDocumentTypeDetails(tdocId) {
     this.api.getDocumentType(tdocId).subscribe(data => {
@@ -37,7 +45,10 @@ export class DocumentTypeDetailComponent implements OnInit {
         this.router.navigate(["/document-types"]);
       },
       err => {
-        console.log(err);
+        this.snackBar.open(
+          "El tipo de documento no ha sido eliminado; Es posible que esté asociado a uno o más clientes.",
+          "Entendido"
+        );
         this.isLoadingResults = false;
       }
     );
